@@ -1,0 +1,10 @@
+server:
+    port: 9001
+    shutdown: graceful
+    servlet:
+      session:
+        timeout: 10
+
+spring:
+  application:
+    name: service1
