@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CloudApplication",
+            "request": "launch",
+            "mainClass": "spring.cloud.CloudApplication",
+            "projectName": "cloud"
+        },
+        {
+            "type": "java",
+            "name": "Launch ApiAdminApplication",
+            "request": "launch",
+            "mainClass": "spring.cloud.CloudApplication.java",
+            "projectName": "cloud",
+            "args": [
+                "-Dspring.profiles.active=local"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiAdminApplication",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.ktds.act.admin.ApiAdminApplication",
+            "projectName": "portal-b",
+            "vmArgs": [
+                "-Dspring.profiles.active=local",
+                "-Dcommon.db=mongo"
+            ],
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+  }

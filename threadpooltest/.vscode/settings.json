@@ -1,0 +1,9 @@
+{
+    "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home",
+    "bracket-pair-colorizer-2.depreciation-notice": false,
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "cmake.configureOnOpen": true,
+
+
+}
