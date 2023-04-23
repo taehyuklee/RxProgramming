@@ -14,7 +14,7 @@ poolType : (String) "Executors" || "Scheduler" - 일반 자바 스레드풀 또�
 
 queueType : (String) "LinkedQ" || "ArraysQ" - 일반 자바 스레드 풀을 이용할때는 LinkedQ 또는 ArrayQ를 이용할수 있는데 둘 중하나를 선택할수 있습니다.
 
-sPoolType : (String) "bound" || "paral" - Schedulers로 shared threadPool을 사용할때 bound 또는 parallel둘중 하나를 선택 가능합니다.
+sPoolType : (String) "bound" || "paral" - Schedulers로 shared threadPool을 사용할때 bound 또는 parallel둘중 하나를 선택 가능합니다.<br><br>
 
 
 -------------------------------------------------------------------------------------------------------------------------------------
