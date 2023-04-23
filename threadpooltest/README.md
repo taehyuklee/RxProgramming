@@ -17,6 +17,14 @@ queueType : (String) "LinkedQ" || "ArraysQ" - 일반 자바 스레드 풀을 이
 sPoolType : (String) "bound" || "paral" - Schedulers로 shared threadPool을 사용할때 bound 또는 parallel둘중 하나를 선택 가능합니다.
 
 
+-------------------------------------------------------------------------------------------------------------------------------------
+성능 테스트 Tool - Apache Benchmarking
+
+위의 Package 사용 예시
+ab -c 100 -n 100000 -H 'first-request: header-value' -H 'poolType: Scheduler' -H 'queueType: LinkedQ' -H 'sPoolType: paral' -H 'blockTime: 5' -H 'N:-1' http://3.34.225.6:8085/first-service/message
+
+ab -c 100 -n 100000 -H 'first-request: header-value' -H 'poolType: Scheduler' -H 'queueType: LinkedQ' -H 'sPoolType: newBo' -H 'blockTime: 5' -H 'N:5000' http://3.34.225.6:8085/first-service/message
+
 
 
 
