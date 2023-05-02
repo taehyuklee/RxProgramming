@@ -16,6 +16,7 @@ import org.springframework.web.server.ServerWebExchange;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 import spring.cloud.Implementation.ServicePacakge;
 import spring.cloud.domain.PoolDto;
 
@@ -36,7 +37,7 @@ public class GetThreadPoolFilter implements GlobalFilter, Ordered {
          * queueType : Executor threadPool일 경우 queue 선정해줘야 한다 ("LinkedQ", "ArraysQ")
          */
 
-        //System.out.println("GlobalFilter1 - Thread   " + Thread.currentThread());
+        System.out.println("GlobalFilter1 - Thread   " + Thread.currentThread());
 
         //System.out.println("범인은 : " + (exchange.getRequest().getRemoteAddress()));
 
@@ -64,7 +65,9 @@ public class GetThreadPoolFilter implements GlobalFilter, Ordered {
         }
         // System.out.println("GlobalFilter1 - Thread   " + Thread.currentThread());
 
-        return chain.filter(exchange).subscribeOn(threadPool);
+        Scheduler schedulers = Schedulers.newBoundedElastic(20, 1000, "my-thread", 60, false);
+
+        return chain.filter(exchange).subscribeOn(schedulers); //.timeout(2000, Exception)
     }
 
 

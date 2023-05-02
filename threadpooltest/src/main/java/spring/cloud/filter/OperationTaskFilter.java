@@ -70,7 +70,7 @@ public class OperationTaskFilter implements GlobalFilter, Ordered {
 
             }
 
-            //System.out.println("밖에 나왔을때의 위치 스레드" + Thread.currentThread());
+            System.out.println("밖에 나왔을때의 위치 스레드 1" + Thread.currentThread());
             //return Mono.empty();
 
        return chain.filter(exchange);
