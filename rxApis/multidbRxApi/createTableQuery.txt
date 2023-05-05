@@ -21,3 +21,24 @@ CREATE TABLE PERSON
 *즉, Long type으로 PK를 관리할거면 SERIAL로해서 Postgresql이 알아서 ID를 증가시키도록 해야 함.
 *만약, String의 UUID를 우리가 사용할려면 넣어주는수밖에 없음. 그런데, r2dbc는 setting해서 넣을려고 하면 update로 인식함.
 
+
+//pgadmin에서 가져온거
+CREATE TABLE IF NOT EXISTS public.person
+(
+    id character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(355) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    phone_num character varying(50) COLLATE pg_catalog."default",
+    score integer,
+    cret_id character varying(50) COLLATE pg_catalog."default",
+    upd_id character varying(50) COLLATE pg_catalog."default",
+    cret_dt time without time zone,
+    upd_dt time without time zone,
+    CONSTRAINT person_pkey PRIMARY KEY (id),
+    CONSTRAINT person_email_key UNIQUE (email)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.person
+    OWNER to postgres;

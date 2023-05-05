@@ -20,7 +20,7 @@ import io.r2dbc.spi.ConnectionFactory;
         value = "common.db"
         ,havingValue = "rdb"
         ,matchIfMissing = false)
-@EnableR2dbcRepositories(basePackages = "com.manage.reative.apis.personapis.domain.repository")
+@EnableR2dbcRepositories(basePackages = "com.manage.reactive.apis.personapis.domain.repository")
 @EnableR2dbcAuditing //JPA Audit과 비슷하게 @createdBy 자동 생성 등의 역할을 함
 public class R2dbcTemplate extends AbstractR2dbcConfiguration{
 

@@ -4,7 +4,7 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://postgres:********@localhost:5432/postgres
+    url: r2dbc:postgresql://postgres:new1234!@localhost:5432/postgres
     # username: postgres
     # password: ********
     pool:
@@ -29,4 +29,4 @@ spring:
       # https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/autoconfigure/data/r2dbc/R2dbcRepositoriesAutoConfiguration.html (r2dbcRepositories autoconfig)
 
 common:
-  db: mongo
+  db: rdb
