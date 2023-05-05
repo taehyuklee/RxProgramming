@@ -1,5 +1,7 @@
 package com.manage.reactive.apis.personapis.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,14 +24,15 @@ public class PersonService {
     //insert case
     @Transactional
     public Mono<String> insert(PersonDto personDto){
-        Person person = new Person();
-        BeanUtils.copyProperties(personDto, person);
-        return personRepository.save(person).then(Response.responseOk);
+        Person personEntity = new Person();
+        BeanUtils.copyProperties(personDto, personEntity);
+        personEntity.setId(UUID.randomUUID().toString());
+        return personRepository.save(personEntity).then(Response.responseOk);
 
     }
 
     
-    //read All
+    //readAll
     @Transactional
     public Flux<PersonDto> getAllPerson(){
         //Entity to Dto (mapping)

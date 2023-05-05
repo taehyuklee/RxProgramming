@@ -3,7 +3,24 @@ server:
     shutdown: graceful
 
 spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/
-      database: RxTest
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: new1234!
+    pool:
+      max-size: 100
+      validation-query: SELECT 1
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_batch_fetch_size: 100
+    open-in-view: false
+    hibernate:
+      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+      ddl-auto: auto

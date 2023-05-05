@@ -12,14 +12,14 @@ import lombok.experimental.Accessors;
 public class Person {
 
     @Id
-    String id;
+    private String id;
 
-    String email;
+    private String email;
 
-    String name;
+    private String name;
 
-    String phoneNum;
+    private String phoneNum;
 
-    Integer score;
+    private Integer score;
     
 }

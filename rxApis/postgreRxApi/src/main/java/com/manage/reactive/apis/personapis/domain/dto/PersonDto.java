@@ -5,14 +5,14 @@ import lombok.Data;
 @Data
 public class PersonDto {
     
-    String id;
+    private String id;
 
-    String email;
+    private String email;
 
-    String name;
+    private String name;
 
-    String phoneNum;
+    private String phoneNum;
 
-    Integer score;
+    private Integer score;
 
 }

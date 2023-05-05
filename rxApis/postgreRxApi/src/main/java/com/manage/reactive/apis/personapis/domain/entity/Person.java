@@ -1,25 +1,40 @@
 package com.manage.reactive.apis.personapis.domain.entity;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Table;
 
+import javax.persistence.GeneratedValue;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 @Data
-@Document
+@Table("Person")
+@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
-public class Person {
+public class Person implements Persistable<String> {
 
     @Id
-    String id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
-    String email;
+    private String email;
 
-    String name;
+    private String name;
 
-    String phoneNum;
+    private String phoneNum;
 
-    Integer score;
+    private Integer score;
+
+    @Override
+    public boolean isNew() {
+        return true;
+    }
     
 }

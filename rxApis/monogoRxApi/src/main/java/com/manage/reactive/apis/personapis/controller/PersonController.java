@@ -40,7 +40,7 @@ public class PersonController {
 
 
     //getOnePerson
-    @GetMapping("/read")
+    @GetMapping("/getByEmail")
     public Mono<PersonDto> getPersonByEmail(String email){
         return personService.getPersonByEmail(email);
     }
