@@ -21,3 +21,8 @@ CREATE TABLE PERSON
 *즉, Long type으로 PK를 관리할거면 SERIAL로해서 Postgresql이 알아서 ID를 증가시키도록 해야 함.
 *만약, String의 UUID를 우리가 사용할려면 넣어주는수밖에 없음. 그런데, r2dbc는 setting해서 넣을려고 하면 update로 인식함.
 
+
+그리고 그냥 Insert할때 PK Column이 Serial로 설정되어 있지 않는 이상, 
+PK가 자동생성(auto-increment)되지 않으며, 그렇다고 내가 Id값에 임의로 생성해서 넣어주면, 
+insert가 아니라 update가 되게 된다. 이에 따라 entity에 다음과 같이 Persistable을 구현해주고 isNew를 insert시에는 true로 해주고 
+update시에는 false로 해줘야 한다. 
