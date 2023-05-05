@@ -1,0 +1,12 @@
+server:
+    port: 8080
+    shutdown: graceful
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://postgres:********@localhost:5432/postgres
+    # username: postgres
+    # password: ********
+    pool:
+      max-size: 100
+      validation-query: SELECT 1

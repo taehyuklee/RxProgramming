@@ -1,0 +1,53 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.12-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.manage.apigw'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+
+	//spring-starter-data-jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//r2dbc dependency
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+	runtimeOnly 'org.postgresql:r2dbc-postgresql'
+
+	/** UUID만드는 것에 대한 의존성이 hibernate-entitymanager에 들어가 있음
+	    @GeneratedValue(generator = "uuid")
+    	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	 */
+    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.7.Final'
+	        
+	//mongodb & rxMongodb dependency
+	// implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+	// implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,23 @@
+CREATE TABLE PERSON
+(
+	ID VARCHAR(50) PRIMARY KEY,
+	EMAIL VARCHAR(355) UNIQUE NOT NULL,
+	NAME VARCHAR(50) NOT NULL,
+	PHONE_NUM VARCHAR(50),
+	SCORE INT
+);
+
+
+//Serial로 생성 (Auto-Increment가 됨)
+CREATE TABLE PERSON
+(
+	ID SERIAL PRIMARY KEY,
+	EMAIL VARCHAR(355) UNIQUE NOT NULL,
+	NAME VARCHAR(50) NOT NULL,
+	PHONE_NUM VARCHAR(50),
+	SCORE INT
+);
+
+*즉, Long type으로 PK를 관리할거면 SERIAL로해서 Postgresql이 알아서 ID를 증가시키도록 해야 함.
+*만약, String의 UUID를 우리가 사용할려면 넣어주는수밖에 없음. 그런데, r2dbc는 setting해서 넣을려고 하면 update로 인식함.
+
