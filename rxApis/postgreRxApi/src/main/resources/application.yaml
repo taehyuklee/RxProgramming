@@ -1,0 +1,9 @@
+server:
+    port: 8080
+    shutdown: graceful
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/
+      database: RxTest
