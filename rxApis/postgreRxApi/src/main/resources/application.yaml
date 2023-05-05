@@ -6,7 +6,6 @@ spring:
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: new1234!
     pool:
       max-size: 100
       validation-query: SELECT 1
