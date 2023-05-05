@@ -4,9 +4,29 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://postgres:********@localhost:5432/postgres
+    url: r2dbc:postgresql://postgres:new1234!@localhost:5432/postgres
     # username: postgres
     # password: ********
     pool:
       max-size: 100
-      validation-query: SELECT 1
+      # validation-query: SELECT 1
+
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/MONGO
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.r2dbc.R2dbcAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.r2dbc.R2dbcDataAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.r2dbc.R2dbcRepositoriesAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.mongo.MongoReactiveDataAutoConfiguration
+      - org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.mongo.MongoReactiveRepositoriesAutoConfiguration
+
+      # https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/autoconfigure/data/r2dbc/R2dbcRepositoriesAutoConfiguration.html (r2dbcRepositories autoconfig)
+
+common:
+  db: mongo

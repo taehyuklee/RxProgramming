@@ -1,4 +1,4 @@
-package com.manage.reactive.apis.common.config.response;
+package com.manage.reactive.apis.common.response;
 
 import reactor.core.publisher.Mono;
 

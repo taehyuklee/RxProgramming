@@ -29,9 +29,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 
-	//spring-starter-data-jpa
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
 	//r2dbc dependency
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
 	runtimeOnly 'org.postgresql:r2dbc-postgresql'
@@ -43,8 +40,7 @@ dependencies {
     implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.7.Final'
 	        
 	//mongodb & rxMongodb dependency
-	// implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-	// implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 
 }
 
