@@ -10,14 +10,14 @@ Implementation of the function of routing to the desired microservice through th
 
 
 # About rxApis Package
- this package provides <b><span style="color:red">non-blocking restful APIs</span></b> code based on WebFlux consisting of three directories: <b>mongoRxApi</b>, <b>postgreRxApi</b>, <b>multidbRxApi</b>. and each sub-packages used reactiveDatabase library such as <b>r2dbc</b>, <b>reactive-mongoRepository</b>. The database configuration is described in the ReactiveDatabase repository.
+ this package provides <b><span style="color:red">non-blocking restful APIs</span></b> code based on WebFlux consisting of three directories: <b>mongoRxApi</b>, <b>postgreRxApi</b>, <b>multidbRxApi</b>. and each sub-packages used reactiveDatabase library such as <b>r2dbc</b>, <b>reactive-mongoRepository</b>. The database configuration is described in the [ReactiveDatabase repository](https://github.com/taehyuklee/ReactiveDataBase.git) <a> </a>.
 
 <br>
 
 - [ ] <b>postgreRxApi</b> <br>
  &nbsp; Implementation of non-blocking restful APIs (basic CRUD) using r2dbc and postgresql database. r2dbc follows a different @Id generation principle than standard JPA, so certain precautions are necessary. <br><br>
  
-    [ ] dependencies
+    - [ ] dependencies
     ```groovy
     //r2dbc dependency
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
@@ -25,7 +25,7 @@ Implementation of the function of routing to the desired microservice through th
     ```
     <br>
 
-    [ ] yaml settings
+    - [ ] yaml settings
     ```yaml
     spring:
         r2dbc:
@@ -42,13 +42,13 @@ Implementation of the function of routing to the desired microservice through th
 - [ ] <b>mongoRxApi</b> <br>
 &nbsp; Implementation of non-blocking restful APIs (basic CRUD) using reactive-mongodb. <br><br>
 
-    [ ] dependencies
+    - [ ] dependencies
     ```groovy
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     ```
     <br>
 
-    [ ] yaml settings
+    - [ ] yaml settings
     ```yaml
     spring:
         data:
@@ -63,7 +63,7 @@ Implementation of the function of routing to the desired microservice through th
 - [ ] <b>multidbRxApi</b> <br>
 &nbsp; Postgresql and mongodb may be chosen based on the yaml configuration. Accordingly, all r2dbc- and reactiveMongo-related auto-config functions were disabled and set separately via Java package config.<br><br>
 
-    [ ] dependencies
+    - [ ] dependencies
     ```groovy
     //r2dbc dependency
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
@@ -75,7 +75,7 @@ Implementation of the function of routing to the desired microservice through th
 
     <br>
 
-    [ ] yaml settings <br>
+    - [ ] yaml settings <br>
     - See the multidbRxApi sub package
 
 
