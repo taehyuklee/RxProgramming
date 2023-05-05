@@ -26,7 +26,9 @@ public class PersonService {
     public Mono<String> insert(PersonDto personDto){
         Person personEntity = new Person();
         BeanUtils.copyProperties(personDto, personEntity);
-        personEntity.setId(UUID.randomUUID().toString());
+        //PK를 uuid로 관리하기 위함, 그리고 insert이므로 isNew를 true로 바꿔줘야 한다.
+        personEntity.setId(UUID.randomUUID().toString())
+                    .setNew(true); 
         return personRepository.save(personEntity).then(Response.responseOk);
 
     }
@@ -60,6 +62,7 @@ public class PersonService {
     public Mono<String> update(PersonDto personDto){
         Mono<Person> monoPerson = personRepository.findById(personDto.getId()).map(person ->{
             BeanUtils.copyProperties(personDto, person, "id");
+            person.setNew(false); //update이므로 false로 바꿔줘야 한다.
             return person;
         });
 
