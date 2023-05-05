@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Data
 @Document
 @Accessors(chain = true)
-public class Person {
+public class Person extends AuditEntity {
 
     @Id
     private String id;
