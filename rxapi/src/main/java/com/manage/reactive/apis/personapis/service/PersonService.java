@@ -41,6 +41,17 @@ public class PersonService {
     }
 
 
+    //getPersonByEmail
+    @Transactional
+    public Mono<PersonDto> getPersonByEmail(String email){
+        return personRepository.findByEmail(email).map(person -> {
+            PersonDto personDto = new PersonDto();
+            BeanUtils.copyProperties(person, personDto);
+            return personDto;
+        });
+    }
+
+
     //update
     @Transactional
     public Mono<String> update(PersonDto personDto){

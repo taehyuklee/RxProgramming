@@ -9,5 +9,6 @@ import reactor.core.publisher.Mono;
 public interface PersonRepository extends ReactiveMongoRepository<Person, String>{
 
     Mono<Void> deleteById(String id);
+    Mono<Person> findByEmail(String email);
     
 }

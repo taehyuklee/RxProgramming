@@ -39,6 +39,13 @@ public class PersonController {
     }
 
 
+    //getOnePerson
+    @GetMapping("/read")
+    public Mono<PersonDto> getPersonByEmail(String email){
+        return personService.getPersonByEmail(email);
+    }
+
+
     //Update
     @PutMapping("/update")
     public Mono<String> updatePerson(@RequestBody PersonDto personDto){
