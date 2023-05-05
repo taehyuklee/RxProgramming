@@ -2,7 +2,9 @@ package com.manage.reactive.apis.personapis.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.manage.reactive.apis.common.config.response.Response;
 import com.manage.reactive.apis.personapis.domain.dto.PersonDto;
 import com.manage.reactive.apis.personapis.domain.entity.Person;
 import com.manage.reactive.apis.personapis.domain.repository.PersonRepository;
@@ -18,20 +20,19 @@ public class PersonService {
     private final PersonRepository personRepository;
 
     //insert case
+    @Transactional
     public Mono<String> insert(PersonDto personDto){
-
         Person person = new Person();
         BeanUtils.copyProperties(personDto, person);
-        personRepository.save(person).then();
-
-        return Mono.just("Insert - Success");
+        return personRepository.save(person).then(Response.responseOk);
 
     }
 
     
     //read All
+    @Transactional
     public Flux<PersonDto> getAllPerson(){
-        //Entity to Dto
+        //Entity to Dto (mapping)
         return personRepository.findAll().map(person -> {
             PersonDto personDto = new PersonDto();
             BeanUtils.copyProperties(person, personDto);
@@ -41,15 +42,22 @@ public class PersonService {
 
 
     //update
-    public Mono<Void> update(PersonDto personDto){
+    @Transactional
+    public Mono<String> update(PersonDto personDto){
         Mono<Person> monoPerson = personRepository.findById(personDto.getId()).map(person ->{
             BeanUtils.copyProperties(personDto, person, "id");
             return person;
         });
 
         //publisher째 저장할수 있다.
-        return personRepository.saveAll(monoPerson).then();
+        return personRepository.saveAll(monoPerson).then(Response.responseOk);
     }
 
+
+    //delete
+    @Transactional
+    public Mono<String> delete(String id){
+        return personRepository.deleteById(id).then(Response.responseOk);
+    }
 
 }

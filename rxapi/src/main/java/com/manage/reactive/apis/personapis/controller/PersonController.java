@@ -41,14 +41,14 @@ public class PersonController {
 
     //Update
     @PutMapping("/update")
-    public Mono<Void> updatePerson(@RequestBody PersonDto personDto){
+    public Mono<String> updatePerson(@RequestBody PersonDto personDto){
         return personService.update(personDto);
     }
 
     //Delete
     @DeleteMapping("/delete")
-    public Mono<Void> deletePerson(){
-        return Mono.empty();
+    public Mono<String> deletePerson(String id){
+        return personService.delete(id);
     }
     
 }
