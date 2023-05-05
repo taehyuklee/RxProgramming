@@ -28,6 +28,14 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+
+	//r2dbc dependency
+	// implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+	// runtimeOnly 'org.postgresql:r2dbc-postgresql'
+        
+	//mongodb & rxMongodb dependency
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 }
 
 tasks.named('test') {
