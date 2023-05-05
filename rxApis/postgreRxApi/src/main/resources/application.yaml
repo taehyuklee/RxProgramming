@@ -4,9 +4,9 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://postgres:new1234!@localhost:5432/postgres
+    url: r2dbc:postgresql://postgres:********@localhost:5432/postgres
     # username: postgres
-    # password: new1234!
+    # password: ********
     pool:
       max-size: 100
       validation-query: SELECT 1
