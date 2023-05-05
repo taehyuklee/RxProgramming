@@ -10,7 +10,7 @@ Implementation of the function of routing to the desired microservice through th
 
 
 # About rxApis Package
- this package provides <b><span style="color:red">non-blocking restful APIs</span></b> code based on WebFlux consisting of three directories: <b>mongoRxApi</b>, <b>postgreRxApi</b>, <b>multidbRxApi</b>. and each sub-packages used reactiveDatabase library such as <b>r2dbc</b>, <b>reactive-mongoRepository</b>. The database configuration is described in the ReactiveDatabase repository.
+ this package provides <b><span style="color:red">non-blocking restful APIs</span></b> code based on WebFlux consisting of three directories: <b>mongoRxApi</b>, <b>postgreRxApi</b>, <b>multidbRxApi</b>. and each sub-packages used reactiveDatabase library such as <b>r2dbc</b>, <b>reactive-mongoRepository</b>. The database configuration is described in the [ReactiveDatabase repository](https://github.com/taehyuklee/ReactiveDataBase.git) <a> </a>.
 
 <br>
 
