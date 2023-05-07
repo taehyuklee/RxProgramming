@@ -9,7 +9,6 @@ spring:
     # password: ********
     pool:
       max-size: 100
-      # validation-query: SELECT 1
 
 
   data:

@@ -29,18 +29,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 
-	//r2dbc dependency
-	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
-	runtimeOnly 'org.postgresql:r2dbc-postgresql'
+	//jpa 추가
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-	/** UUID만드는 것에 대한 의존성이 hibernate-entitymanager에 들어가 있음
-	    @GeneratedValue(generator = "uuid")
-    	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	 */
-    //implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.7.Final'
-	        
-	//mongodb & rxMongodb dependency
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+	//mongodb 의존성 추가
+	// implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.3.0'
+    // implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
 	//validation체크
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
@@ -48,8 +42,10 @@ dependencies {
 	//objectMapper
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
 
-	//jpa
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//jdbc
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.7.0'
+
+	implementation 'org.postgresql:postgresql:42.3.1'
 
 }
 

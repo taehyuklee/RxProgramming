@@ -1,0 +1,29 @@
+server:
+    port: 8080
+    shutdown: graceful
+
+spring:
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    show-sql: true
+    hibernate: 
+      ddl-auto: none
+    open-in-view: false
+
+  #DataBase
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: !********
+    hikari:
+      maximum-pool-size: 100
+      connection-timeout: 5000
+      validation-timeout: 4000
+      max-lifetime: 600000
+    type: com.zaxxer.hikari.HikariDataSource
+
+
+common:
+  db: mongo
