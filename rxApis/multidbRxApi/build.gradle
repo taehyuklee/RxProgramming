@@ -37,7 +37,7 @@ dependencies {
 	    @GeneratedValue(generator = "uuid")
     	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	 */
-    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.7.Final'
+    //implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.7.Final'
 	        
 	//mongodb & rxMongodb dependency
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
