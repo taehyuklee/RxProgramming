@@ -42,6 +42,12 @@ dependencies {
 	//mongodb & rxMongodb dependency
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 
+	//validation체크
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
+
+	//objectMapper
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+
 }
 
 tasks.named('test') {

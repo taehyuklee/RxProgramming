@@ -36,6 +36,9 @@ dependencies {
 	//mongodb & rxMongodb dependency
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+	//validation체크
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
 }
 
 tasks.named('test') {

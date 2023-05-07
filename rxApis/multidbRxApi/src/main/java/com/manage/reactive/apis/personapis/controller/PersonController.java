@@ -1,5 +1,7 @@
 package com.manage.reactive.apis.personapis.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +25,8 @@ public class PersonController {
     private final PersonService personService;
 
     //Insert
-    @PostMapping("/insert")
-    public Mono<String> insert(@RequestBody PersonDto personDto){
+    @PostMapping("/person")
+    public Mono<String> insert(@Valid @RequestBody PersonDto personDto){
         return personService.insert(personDto);
     }
 
@@ -33,7 +35,7 @@ public class PersonController {
      *  Flux<PersonDto>로 return해줘도 되는 이유 :
      *  Accept: application/stream+json 형식을 헤더에 설정하면 서버는 응답을 스트림 형태로 전송하게 된다.
      */
-    @GetMapping("/read")
+    @GetMapping("/person")
     public Flux<PersonDto> getAllPerson(){
         return personService.getAllPerson();
     }
@@ -47,13 +49,13 @@ public class PersonController {
 
 
     //Update
-    @PutMapping("/update")
-    public Mono<String> updatePerson(@RequestBody PersonDto personDto){
+    @PutMapping("/person")
+    public Mono<String> updatePerson(@Valid @RequestBody PersonDto personDto){
         return personService.update(personDto);
     }
 
     //Delete
-    @DeleteMapping("/delete")
+    @DeleteMapping("/person")
     public Mono<String> deletePerson(String id){
         return personService.delete(id);
     }

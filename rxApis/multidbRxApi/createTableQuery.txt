@@ -42,3 +42,62 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.person
     OWNER to postgres;
+
+
+--------------------------------------------------------------------------
+One-to-Many
+관계들을 성립해가 위해
+
+[Person과 관련된 person 쿼리]
+-- Table: public.person
+
+-- DROP TABLE IF EXISTS public.person;
+
+CREATE TABLE IF NOT EXISTS public.person
+(
+    id character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(355) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    phone_num character varying(50) COLLATE pg_catalog."default",
+    score integer,
+    cret_id character varying(50) COLLATE pg_catalog."default",
+    upd_id character varying(50) COLLATE pg_catalog."default",
+    cret_dt timestamp without time zone,
+    upd_dt timestamp without time zone,
+    "teamId" character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT person_pkey PRIMARY KEY (id),
+    CONSTRAINT person_email_key UNIQUE (email),
+    CONSTRAINT "person_teamId_fkey" FOREIGN KEY ("teamId")
+        REFERENCES public.team (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.person
+    OWNER to postgres;
+
+[Team과 관련된 table 쿼리]
+-- Table: public.team
+
+-- DROP TABLE IF EXISTS public.team;
+
+CREATE TABLE IF NOT EXISTS public.team
+(
+    id character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    "teamName" character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    "teamGrade" character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Team_pkey" PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.team
+    OWNER to postgres;
+
+* @MappedCollection(idColumn = "team_id", keyColumn = "person_id") 사용하면, 
+"org.springframework.dao.InvalidDataAccessApiUsageException: Nested entities are not supported\r\n\tat org.springframework.data.r2dbc.convert.MappingR2dbcConverter.writeCollectionInternal(MappingR2dbcConverter.java:476)\r\n\tat org.springframework.data.r2dbc.convert.MappingR2dbcConverter.createCollection(MappingR2dbcConverter.java:443)\r\n\tat org.
+와 같은 에러가뜸 -> R2DBC에서는 Nested @OneToMany와 같은 annotation을 지원하지 않는다. -> 즉, 만들어 써야함.
+

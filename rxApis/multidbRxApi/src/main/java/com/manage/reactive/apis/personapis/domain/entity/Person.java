@@ -6,8 +6,6 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.relational.core.mapping.Table;
 
-import com.manage.reactive.apis.common.config.annotation.ConditionalTransient;
-
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -23,7 +21,8 @@ public class Person extends AuditEntity implements Persistable<String>{
     @Id
     private String id;
 
-    private String teamId;
+    //mongodb일때는 안넣어주면 된다. rdb일때만 FK주입해주면 됨.
+    private String teamId; 
 
     private String email;
 
@@ -32,9 +31,6 @@ public class Person extends AuditEntity implements Persistable<String>{
     private String phoneNum;
 
     private Integer score;
-
-    @ConditionalTransient(dbType = "rdb")
-    private String team ="shot";
 
     @Override
     public boolean isNew() {
