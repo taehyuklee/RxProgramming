@@ -34,8 +34,9 @@ public class TeamCallback implements BeforeConvertCallback<Team> {
     @Override
     public Publisher<Team> onBeforeConvert(Team entity, SqlIdentifier table) {
 
-        if (dbType.equals("rdb")) {
+        
 
+        if (dbType.equals("rdb")) {
             Class<?> entityClass = entity.getClass(); //Entity의 .class를 가져온다.
             Field[] fields = entityClass.getDeclaredFields(); //entity의 속성들을 가져온다.
 
@@ -44,8 +45,7 @@ public class TeamCallback implements BeforeConvertCallback<Team> {
             //field를 돌면서 Annotation을 확인하도록 한다.
             for (Field targetField : fields) {
                 //field.isAnnotationPresent로 확인 가능 여기서 내가 만들어 놓은 ConditionalTransient annotation을 확인한다.
-                if (targetField.isAnnotationPresent(ConditionalTransient.class)) {
-
+                if (targetField.isAnnotationPresent(ConditionalTransient.class) && entity.isNew() == true) {
                     Mono<Void> insertTeam = dataBaseClient.sql("INSERT INTO team (id, team_name, team_grade, cret_dt, upd_dt, cret_id) VALUES(:id, :team_name, :team_grade, :cret_dt, :upd_dt, :cret_id)")
                                                         .bind("id", entity.getId())
                                                         .bind("team_name", entity.getTeamName())
@@ -54,7 +54,6 @@ public class TeamCallback implements BeforeConvertCallback<Team> {
                                                         .bind("upd_dt", currTime)
                                                         .bind("cret_id", "cretHost")
                                                         .then();
-
 
                     Mono<Void> insertPeople = Flux.fromIterable(entity.getTeamMembers())
                             .flatMap(person -> dataBaseClient.sql("INSERT INTO person (id, email, name, phone_num, score, cret_dt, upd_dt, cret_id, team_id) VALUES(:id, :email, :name, :phone_num, :score, :cret_dt, :upd_dt, :cret_id, :team_id)")
@@ -68,11 +67,39 @@ public class TeamCallback implements BeforeConvertCallback<Team> {
                                     .bind("upd_dt", currTime)
                                     .bind("cret_id", "cretHost").then())
                                 .then();
-                         
-                                
-                    
-                    return Mono.zip(insertTeam, insertPeople)
-                        .then(Mono.empty());
+
+                        return insertTeam
+                                .then(insertPeople)
+                                .then(Mono.empty());
+
+                    }else if(targetField.isAnnotationPresent(ConditionalTransient.class) && entity.isNew() == false){
+
+                        System.out.println(entity);
+
+                        Mono<Void> updateTeam = dataBaseClient.sql("UPDATE team SET team_name = :team_name, team_grade = :team_grade, upd_dt = :upd_dt, upd_id = :upd_id WHERE id = :id")
+                            .bind("team_name", entity.getTeamName())
+                            .bind("team_grade", entity.getTeamGrade())
+                            .bind("upd_dt", currTime)
+                            .bind("upd_id", "updHost")
+                            .bind("id", entity.getId())
+                            .then();
+
+
+                        Mono<Void> updatePeople = Flux.fromIterable(entity.getTeamMembers())
+                            .flatMap(person -> dataBaseClient.sql("UPDATE person SET email = :email, name = :name, phone_num = :phone_num, score = :score, upd_id = :upd_id, upd_dt = :upd_dt, team_id = :team_id WHERE id = :id")
+                                .bind("id", person.getId())
+                                .bind("team_id", entity.getId())
+                                .bind("email", person.getEmail())
+                                .bind("name", person.getName())
+                                .bind("phone_num",person.getPhoneNum())
+                                .bind("score", person.getScore())
+                                .bind("upd_dt", currTime)
+                                .bind("upd_id", "updHost").then())
+                            .then();
+
+                        return updateTeam
+                            .then(updatePeople)
+                            .then(Mono.empty());
                     }
                 }
             }

@@ -47,14 +47,13 @@ public class TeamService {
     //update
     @Transactional
     public Mono<String> update(TeamDto teamDto){
-        Mono<Team> monoPerson = teamRepository.findById(teamDto.getId()).map(team ->{
+        return teamRepository.findById(teamDto.getId())
+        .flatMap(team -> {
             BeanUtils.copyProperties(teamDto, team, "id");
-            team.setNew(false).setUpdId("updHost"); //update이므로 false로 바꿔줘야 한다.
-        return team;
-    });
-
-        //publisher째 저장할수 있다.
-        return teamRepository.saveAll(monoPerson).then(Response.responseOk);
+            team.setNew(false).setUpdId("updHost");
+            return teamRepository.save(team);
+        })
+        .then(Response.responseOk);
     }
 
     //delete
