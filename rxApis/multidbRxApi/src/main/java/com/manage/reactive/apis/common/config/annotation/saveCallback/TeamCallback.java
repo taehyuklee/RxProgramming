@@ -13,7 +13,6 @@ import org.springframework.data.relational.core.sql.SqlIdentifier;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Component;
 
-import com.manage.reactive.apis.personapis.domain.entity.Person;
 import com.manage.reactive.apis.personapis.domain.entity.Team;
 
 import lombok.RequiredArgsConstructor;

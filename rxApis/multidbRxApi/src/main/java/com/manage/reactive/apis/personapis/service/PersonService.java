@@ -33,20 +33,6 @@ public class PersonService {
         //PK를 uuid로 관리하기 위함, 그리고 insert이므로 isNew를 true로 바꿔줘야 한다.
         personEntity.setId(UUID.randomUUID().toString())
                     .setNew(true).setCretId("cretHost"); 
-
-        // databaseClient.sql("INSERT INTO person (id, email, name, phone_num, score, cret_dt, upd_dt, cret_id, team_id) VALUES(:id, :email, :name, :phone_num, :score, :cred_dt, :upd_dt, :cret_id :team_id)")
-        //             .bind("id", UUID.randomUUID().toString())
-        //             .bind("team_id", UUID.randomUUID().toString())
-        //             .bind("email", personDto.getEmail())
-        //             .bind("name", personDto.getName())
-        //             .bind("phone_num",personDto.getPhoneNum())
-        //             .bind("score", personDto.getScore())
-        //             .bind("cret_dt", LocalDateTime.now())
-        //             .bind("upd_dt", LocalDateTime.now())
-        //             .bind("cret_id", "cretHost").then()
-        //             .subscribe();
-                    
-        // return Mono.empty();
         return personRepository.save(personEntity).then(Response.responseOk);
 
     }
