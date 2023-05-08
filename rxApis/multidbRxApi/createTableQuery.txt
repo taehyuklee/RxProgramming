@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS public.person
     "teamId" character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT person_pkey PRIMARY KEY (id),
     CONSTRAINT person_email_key UNIQUE (email),
-    CONSTRAINT "person_teamId_fkey" FOREIGN KEY ("teamId")
+    CONSTRAINT "person_teamId_fkey" FOREIGN KEY ("team_id")
         REFERENCES public.team (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
