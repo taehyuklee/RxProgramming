@@ -74,8 +74,6 @@ public class TeamCallback implements BeforeConvertCallback<Team> {
 
                     }else if(targetField.isAnnotationPresent(ConditionalTransient.class) && entity.isNew() == false){
 
-                        System.out.println(entity);
-
                         Mono<Void> updateTeam = dataBaseClient.sql("UPDATE team SET team_name = :team_name, team_grade = :team_grade, upd_dt = :upd_dt, upd_id = :upd_id WHERE id = :id")
                             .bind("team_name", entity.getTeamName())
                             .bind("team_grade", entity.getTeamGrade())
