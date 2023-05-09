@@ -3,10 +3,10 @@ package com.manage.reactive.apis.personapis.service;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.manage.reactive.apis.common.config.annotation.readAop.TeamSelectFilter;
 import com.manage.reactive.apis.common.response.Response;
 import com.manage.reactive.apis.personapis.domain.dto.TeamDto;
 import com.manage.reactive.apis.personapis.domain.entity.Team;
@@ -21,6 +21,7 @@ import reactor.core.publisher.Mono;
 public class TeamService {
 
     private final TeamRepository teamRepository;
+    private final TeamSelectFilter teamSelectFilter;
     
     //insert case
     @Transactional
@@ -37,7 +38,7 @@ public class TeamService {
     @Transactional
     public Flux<TeamDto> getAllTeam(){
         //Entity to Dto (mapping)
-        return teamRepository.findAll().map(team -> {
+        return teamSelectFilter.findAll().map(team -> {
             TeamDto teamDto = new TeamDto();
             BeanUtils.copyProperties(team, teamDto);
             return teamDto; //flatMap을 사용하면 하나씩 return되게 됨.

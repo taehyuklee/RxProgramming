@@ -1,4 +1,4 @@
-package com.manage.reactive.apis.common.config.annotation.saveCallback;
+package com.manage.reactive.apis.common.config.annotation.createUpdateAop;
 
 
 import java.lang.reflect.Field;
@@ -24,7 +24,7 @@ import com.manage.reactive.apis.common.config.annotation.ConditionalTransient;
 @Component
 @ConfigurationProperties
 @RequiredArgsConstructor
-public class TeamCallback implements BeforeConvertCallback<Team> {
+public class TeamBeforeConvert implements BeforeConvertCallback<Team> {
 
     @Value("${common.db}")
     private String dbType;
@@ -32,9 +32,8 @@ public class TeamCallback implements BeforeConvertCallback<Team> {
     private final DatabaseClient dataBaseClient;
 
     @Override
-    public Publisher<Team> onBeforeConvert(Team entity, SqlIdentifier table) {
-
-        
+    public Publisher<Team> onBeforeConvert(Team entity, SqlIdentifier table) {  
+     
 
         if (dbType.equals("rdb")) {
             Class<?> entityClass = entity.getClass(); //Entity의 .class를 가져온다.
