@@ -1,4 +1,4 @@
-package com.manage.reactive.apis.common.config.annotation.createUpdateAop;
+package com.manage.reactive.apis.common.config.annotation.saveCallback;
 
 
 import java.lang.reflect.Field;
@@ -34,7 +34,6 @@ public class TeamBeforeConvert implements BeforeConvertCallback<Team> {
     @Override
     public Publisher<Team> onBeforeConvert(Team entity, SqlIdentifier table) {  
      
-
         if (dbType.equals("rdb")) {
             Class<?> entityClass = entity.getClass(); //Entity의 .class를 가져온다.
             Field[] fields = entityClass.getDeclaredFields(); //entity의 속성들을 가져온다.
