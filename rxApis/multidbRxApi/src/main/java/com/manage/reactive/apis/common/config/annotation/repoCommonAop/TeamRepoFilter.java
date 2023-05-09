@@ -1,6 +1,7 @@
 package com.manage.reactive.apis.common.config.annotation.repoCommonAop;
 
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -120,11 +121,13 @@ public class TeamRepoFilter{
 
                 if (targetField.isAnnotationPresent(ConditionalTransient.class)) {
 
-                    Flux<Mono<Tuple4<String,String,String,Person>>> rslt =  dataBaseClient.sql("SELECT p.id, p.email, p.name, p.phone_num, p.score, p.team_id, t.team_name, t.team_grade FROM person p INNER JOIN team t ON p.team_id = t.id")  
+                    Flux<Mono<Tuple4<String,String,String,Person>>> rslt =  dataBaseClient.sql("SELECT p.id, p.email, p.name, p.phone_num, p.score, p.team_id, p.cret_id, p.upd_id, p.cret.dt, p.upd.dt"+
+                                                                    ", t.team_name, t.team_grade, t.cret_id, t.upd_id, t.cret.dt, t.upd.dt FROM person p INNER JOIN team t ON p.team_id = t.id")  
                         .map(row -> {
                             String teamId = row.get("team_id", String.class);
                             String teamName = row.get("team_name", String.class);
                             String teamGrade = row.get("team_grade", String.class);
+                            LocalDateTime cret_id = row.get("cret_id", LocalDateTime.class);
                             
                             Person person = new Person();
                             person.setId(row.get("id", String.class));
@@ -132,7 +135,9 @@ public class TeamRepoFilter{
                             person.setName(row.get("name", String.class));
                             person.setPhoneNum(row.get("phone_num", String.class));
                             person.setScore(row.get("score", Integer.class));
-                            
+                            person.setCretDt(row.get("cret_dt", LocalDateTime.class));
+                            person.setCretId(row.get("cret_id", String.class));
+
                             return Mono.just(Tuples.of(teamId, teamName, teamGrade, person));
                         }).all();
 
