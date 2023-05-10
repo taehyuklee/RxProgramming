@@ -3,6 +3,7 @@ package com.manage.reactive.apis.personapis.domain.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -26,7 +27,7 @@ public class Team extends AuditEntity implements Persistable<String>{
     private String teamGrade;
 
     @Transient
-    private List<Person> teamMembers;
+    private List<Person> teamMembers = new ArrayList<Person>();;
     
     @Override
     public boolean isNew() {

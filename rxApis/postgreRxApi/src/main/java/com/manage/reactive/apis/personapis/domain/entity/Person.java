@@ -20,6 +20,8 @@ public class Person extends AuditEntity implements Persistable<String>{
     @Id
     private String id;
 
+    private String teamId;
+
     private String email;
 
     private String name;
@@ -28,8 +30,6 @@ public class Person extends AuditEntity implements Persistable<String>{
 
     private Integer score;
 
-    @Transient
-    private String team;
 
     @Override
     public boolean isNew() {

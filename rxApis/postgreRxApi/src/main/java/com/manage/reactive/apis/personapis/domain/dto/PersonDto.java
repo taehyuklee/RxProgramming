@@ -7,6 +7,9 @@ public class PersonDto {
     
     private String id;
 
+    //FK - Person PK
+    private String teamId;
+
     private String email;
 
     private String name;

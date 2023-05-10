@@ -1,5 +1,7 @@
 package com.manage.reactive.apis.personapis.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.manage.reactive.apis.common.config.response.Response;
 import com.manage.reactive.apis.personapis.domain.dto.PersonDto;
 import com.manage.reactive.apis.personapis.domain.entity.Person;
+import com.manage.reactive.apis.personapis.domain.entity.Team;
 import com.manage.reactive.apis.personapis.domain.repository.PersonRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -75,6 +78,17 @@ public class PersonService {
     @Transactional
     public Mono<String> delete(String id){
         return personRepository.deleteById(id).then(Response.responseOk);
+    }
+
+
+    /* for One To Many Relation API */
+    public Mono<Void> svaeRelation(Team team){
+        List<Mono<Person>> listPerson = new ArrayList<>();
+        for(Person person: team.getTeamMembers()){
+            person.setId(UUID.randomUUID().toString()).setTeamId(team.getId()).setNew(true); //FK로 저장
+            listPerson.add(personRepository.save(person));
+        }
+        return Flux.merge(listPerson).then();
     }
 
 }
