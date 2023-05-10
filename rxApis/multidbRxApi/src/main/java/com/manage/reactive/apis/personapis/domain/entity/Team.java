@@ -1,8 +1,6 @@
 package com.manage.reactive.apis.personapis.domain.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
@@ -14,7 +12,8 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.relational.core.mapping.Table;
 
-import com.manage.reactive.apis.common.config.annotation.ConditionalTransient;
+import com.manage.reactive.apis.common.config.annotation.RxJoinColumn;
+import com.manage.reactive.apis.common.config.annotation.RxTransient;
 
 
 @Data
@@ -33,7 +32,8 @@ public class Team extends AuditEntity implements Persistable<String>{
 
     private String teamGrade;
 
-    @ConditionalTransient
+    @RxTransient
+    @RxJoinColumn(name = "team_id")
     private List<Person> teamMembers = new ArrayList<Person>();
     
     @Override

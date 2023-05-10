@@ -22,7 +22,7 @@ public class Person extends AuditEntity implements Persistable<String>{
     private String id;
 
     //mongodb일때는 안넣어주면 된다. rdb일때만 FK주입해주면 됨.
-    private String teamId; 
+    //private String teamId; 
 
     private String email;
 

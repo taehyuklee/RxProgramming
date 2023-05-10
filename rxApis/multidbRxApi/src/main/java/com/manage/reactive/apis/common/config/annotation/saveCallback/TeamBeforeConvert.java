@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import com.manage.reactive.apis.common.config.annotation.ConditionalTransient;
+import com.manage.reactive.apis.common.config.annotation.RxTransient;
 
 @Component
 @ConfigurationProperties
@@ -43,7 +43,7 @@ public class TeamBeforeConvert implements BeforeConvertCallback<Team> {
             //field를 돌면서 Annotation을 확인하도록 한다.
             for (Field targetField : fields) {
                 //field.isAnnotationPresent로 확인 가능 여기서 내가 만들어 놓은 ConditionalTransient annotation을 확인한다.
-                if (targetField.isAnnotationPresent(ConditionalTransient.class) && entity.isNew() == true) {
+                if (targetField.isAnnotationPresent(RxTransient.class) && entity.isNew() == true) {
                     Mono<Void> insertTeam = dataBaseClient.sql("INSERT INTO team (id, team_name, team_grade, cret_dt, upd_dt, cret_id) VALUES(:id, :team_name, :team_grade, :cret_dt, :upd_dt, :cret_id)")
                                                         .bind("id", entity.getId())
                                                         .bind("team_name", entity.getTeamName())
@@ -70,7 +70,7 @@ public class TeamBeforeConvert implements BeforeConvertCallback<Team> {
                                 .then(insertPeople)
                                 .then(Mono.empty());
 
-                    }else if(targetField.isAnnotationPresent(ConditionalTransient.class) && entity.isNew() == false){
+                    }else if(targetField.isAnnotationPresent(RxTransient.class) && entity.isNew() == false){
 
                         Mono<Void> updateTeam = dataBaseClient.sql("UPDATE team SET team_name = :team_name, team_grade = :team_grade, upd_dt = :upd_dt, upd_id = :upd_id WHERE id = :id")
                             .bind("team_name", entity.getTeamName())

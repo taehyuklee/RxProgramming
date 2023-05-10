@@ -6,13 +6,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { FIELD, METHOD, ANNOTATION_TYPE })
-public @interface ConditionalTransient {
+public @interface RxJoinColumn {
 
-    //boolean condition() default true;
-
-    //String dbType();
+    String name();
 
 }

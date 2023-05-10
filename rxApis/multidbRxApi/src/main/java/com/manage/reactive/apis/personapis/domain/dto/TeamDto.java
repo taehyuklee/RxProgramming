@@ -1,5 +1,6 @@
 package com.manage.reactive.apis.personapis.domain.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.manage.reactive.apis.personapis.domain.entity.Person;
@@ -16,5 +17,13 @@ public class TeamDto {
     private String teamGrade;
     
     private List<Person> teamMembers;
+
+    private String cretId;
+
+    private String updId;
+
+    private LocalDateTime cretDt;
+
+    private LocalDateTime updDt;
 
 }
