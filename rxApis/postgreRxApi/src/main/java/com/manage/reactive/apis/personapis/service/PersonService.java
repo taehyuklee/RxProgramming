@@ -91,4 +91,12 @@ public class PersonService {
         return Flux.merge(listPerson).then();
     }
 
+    public Flux<Person> findRelation(String FK){ 
+
+        Flux<Person> fluxPerson= personRepository.findByTeamId(FK);
+        
+        return fluxPerson;
+    }
+
+
 }

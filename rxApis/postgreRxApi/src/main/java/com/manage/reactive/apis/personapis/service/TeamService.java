@@ -1,5 +1,7 @@
 package com.manage.reactive.apis.personapis.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -8,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.manage.reactive.apis.common.config.response.Response;
 import com.manage.reactive.apis.personapis.domain.dto.TeamDto;
+import com.manage.reactive.apis.personapis.domain.entity.Person;
 import com.manage.reactive.apis.personapis.domain.entity.Team;
-import com.manage.reactive.apis.personapis.domain.repository.PersonRepository;
 import com.manage.reactive.apis.personapis.domain.repository.TeamRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,7 @@ public class TeamService {
         teamEntity.setId(UUID.randomUUID().toString())
                     .setNew(true).setCretId("cretHost"); 
 
-        //OneToMany Relation
+        //OneToMany Relation (save)
         Mono<Void> dbSave = teamRepository.save(teamEntity).flatMap(team -> {
             return personService.svaeRelation(team); //반환 자체가 Flux이므로 flatMapMany를 사용해야한다 or Mono<Void>로 감싸서 가져온다.
         }).then();
@@ -44,10 +46,18 @@ public class TeamService {
     @Transactional
     public Flux<TeamDto> getAllTeam(){
         //Entity to Dto (mapping)
-        return teamRepository.findAll().map(team -> {
+        return teamRepository.findAll().flatMap(team -> { //map을 쓰면 빨간줄 flatMap을 사용하면 괜찮다 차이가 뭘까?
             TeamDto teamDto = new TeamDto();
             BeanUtils.copyProperties(team, teamDto);
-            return teamDto; //flatMap을 사용하면 하나씩 return되게 됨.
+
+            //OneToMany Relation (Find)
+            List<Person> listPerson = new ArrayList<>();
+            return personService.findRelation(team.getId()).collectList().map(personlist->{
+                listPerson.addAll(personlist);
+                teamDto.setTeamMembers(listPerson); //관계를 객체형태로 넣어준다.
+                return teamDto;
+            });
+            
         });
     }
 
