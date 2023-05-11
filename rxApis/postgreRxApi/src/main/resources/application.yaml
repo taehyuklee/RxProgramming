@@ -1,10 +1,14 @@
 server:
     port: 8080
     shutdown: graceful
+    
 
 spring:
+  main:
+    web-application-type: reactive
+
   r2dbc:
-    url: r2dbc:postgresql://postgres:new1234!@localhost:5432/postgres
+    url: r2dbc:postgresql://postgres:********@localhost:5432/postgres
     # username: postgres
     # password: ********
     pool:
