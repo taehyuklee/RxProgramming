@@ -25,7 +25,7 @@ public class PersonController {
     private final PersonService personService;
 
     //Insert
-    @PostMapping("/team")
+    @PostMapping("/person")
     public Mono<String> insert(@Valid @RequestBody PersonDto personDto){
         return personService.insert(personDto);
     }
@@ -35,7 +35,7 @@ public class PersonController {
      *  Flux<PersonDto>로 return해줘도 되는 이유 :
      *  Accept: application/stream+json 형식을 헤더에 설정하면 서버는 응답을 스트림 형태로 전송하게 된다.
      */
-    @GetMapping("/team")
+    @GetMapping("/person")
     public Flux<PersonDto> getAllPerson(){
         return personService.getAllPerson();
     }
@@ -49,13 +49,13 @@ public class PersonController {
 
 
     //Update
-    @PutMapping("/team")
+    @PutMapping("/person")
     public Mono<String> updatePerson(@Valid @RequestBody PersonDto personDto){
         return personService.update(personDto);
     }
 
     //Delete
-    @DeleteMapping("/team")
+    @DeleteMapping("/person")
     public Mono<String> deletePerson(String id){
         return personService.delete(id);
     }
