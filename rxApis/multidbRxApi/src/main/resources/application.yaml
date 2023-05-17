@@ -28,4 +28,4 @@ spring:
       # https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/autoconfigure/data/r2dbc/R2dbcRepositoriesAutoConfiguration.html (r2dbcRepositories autoconfig)
 
 common:
-  db: rdb
+  db: mongo
