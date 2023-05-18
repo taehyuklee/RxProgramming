@@ -1,6 +1,5 @@
 package com.manage.reactive.apis.personapis.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,9 +7,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.manage.reactive.apis.common.exception.ServerRuntimeException;
 import com.manage.reactive.apis.common.response.Response;
+import com.manage.reactive.apis.common.response.StatusEnums;
 import com.manage.reactive.apis.personapis.domain.dto.TeamDto;
-import com.manage.reactive.apis.personapis.domain.entity.Person;
 import com.manage.reactive.apis.personapis.domain.entity.Team;
 import com.manage.reactive.apis.personapis.domain.repository.TeamRepository;
 
@@ -65,6 +65,69 @@ public class TeamService {
     public Mono<String> delete(String id){
         return teamRepository.deleteById(id).then(Response.responseOk);
     }
+
+
+
+
+    /* If you want to use Response Object */
+
+    //insert case with Response
+    @Transactional
+    public Mono<Response<Void>> insertResponse(TeamDto teamDto){
+
+        Team teamEntity = new Team();
+        BeanUtils.copyProperties(teamDto, teamEntity);
+
+        teamEntity.setId(UUID.randomUUID().toString()).setNew(true)
+                    .setCretId("cretHost"); 
+
+        //saveDply & convert dply to mngt
+        return checkDuplication(teamDto)
+                .flatMap(bool->{
+                    if(!bool){
+                        return teamRepository.save(teamEntity)
+                            .then(new Response<Void>().responseOk());
+                    }else{
+                        return Mono.error(new ServerRuntimeException(StatusEnums.CONFLICT))
+                                .then(Mono.empty());
+                    }
+                }).onErrorResume(error ->{
+                    return new Response<Void>().conflictError();
+                });
+                
+    }
+
+    //readAll
+    @Transactional(readOnly = true)
+    public Mono<Response<List<TeamDto>>> getResponseTeam(String teamName){
+
+        if (teamName != null) {
+            return teamRepository.findByTeamName(teamName).map(team->{
+                TeamDto teamDto = new TeamDto();
+                BeanUtils.copyProperties(team, teamDto);
+                return teamDto;
+            }).collectList().flatMap(listDto -> {
+                return new Response<List<TeamDto>>().responseOk(listDto);
+            });
+                
+        }
+
+        return teamRepository.findAll().map(team->{
+            TeamDto teamDto = new TeamDto();
+            BeanUtils.copyProperties(team, teamDto);
+            return teamDto;
+        }).collectList().flatMap(listDto -> {
+            return new Response<List<TeamDto>>().responseOk(listDto);
+        });
+    
+    }
+
+
+    //Check of Duplication for Team Name
+    public Mono<Boolean> checkDuplication(TeamDto teamDto){
+        return teamRepository.existsByTeamName(teamDto.getTeamName());
+    }
+        
     
 
 }

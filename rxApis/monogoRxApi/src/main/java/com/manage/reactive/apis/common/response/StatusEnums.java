@@ -13,6 +13,7 @@ public enum StatusEnums {
     UNAUTHORIZE_ERROR(401, "인증에러입니다.", HttpStatus.UNAUTHORIZED),
     FORBIDDEN(403, "권한이 없습니다.", HttpStatus.FORBIDDEN),
     DATA_NOT_FOUND(404, "해당 데이터를 찾을수 없습니다.", HttpStatus.NOT_FOUND),
+    CONFLICT(409, "재원 충돌입니다.", HttpStatus.CONFLICT),
     INTERNAL_SERVER_ERROR(500, "서버 에러입니다.", HttpStatus.INTERNAL_SERVER_ERROR),
     ;
 

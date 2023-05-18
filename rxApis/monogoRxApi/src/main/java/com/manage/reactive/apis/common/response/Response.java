@@ -1,7 +1,5 @@
 package com.manage.reactive.apis.common.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +34,12 @@ public class Response<V> {
         return Mono.just(new Response<V>().setCode(StatusEnums.SUCCESS.getCode())
                     .setReturnMessage(StatusEnums.SUCCESS.getMessage())
                     .setData(value));
+    }
+
+    //ResponseOk for Read
+    public Mono<Response<V>> conflictError(){
+        return Mono.just(new Response<V>().setCode(StatusEnums.CONFLICT.getCode())
+                    .setReturnMessage(StatusEnums.CONFLICT.getMessage()));
     }
 
 }
