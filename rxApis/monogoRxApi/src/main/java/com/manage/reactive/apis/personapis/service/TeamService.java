@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.manage.reactive.apis.common.exception.ServerRuntimeException;
+import com.manage.reactive.apis.common.handler.DuplicatedHandler;
 import com.manage.reactive.apis.common.response.Response;
 import com.manage.reactive.apis.common.response.StatusEnums;
 import com.manage.reactive.apis.personapis.domain.dto.TeamDto;
@@ -82,18 +83,7 @@ public class TeamService {
                     .setCretId("cretHost"); 
 
         //saveDply & convert dply to mngt
-        return checkDuplication(teamDto)
-                .flatMap(bool->{
-                    if(!bool){
-                        return teamRepository.save(teamEntity)
-                            .then(new Response<Void>().responseOk());
-                    }else{
-                        return Mono.error(new ServerRuntimeException(StatusEnums.CONFLICT))
-                                .then(Mono.empty());
-                    }
-                }).onErrorResume(error ->{
-                    return new Response<Void>().conflictError();
-                });
+        return DuplicatedHandler.checkAndSave(teamRepository, teamEntity);
                 
     }
 
