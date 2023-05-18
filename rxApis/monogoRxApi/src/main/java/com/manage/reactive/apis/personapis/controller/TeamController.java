@@ -61,8 +61,8 @@ public class TeamController {
 
     //Read
     @GetMapping("/responseTeam")
-    public Mono<Response<List<TeamDto>>> getResponseTeam(@RequestParam String teamName){
+    public Mono<Response<List<TeamDto>>> getResponseTeam(@RequestParam(value="teamName", required = false) String teamName){
         return teamService.getResponseTeam(teamName);
     }
-    
+
 }
