@@ -16,13 +16,9 @@ public class Response<V> {
 
     public static Mono<String> responseOk = Mono.just("Successs");
 
-
-    @JsonProperty
-    private String returnCode;
+    private int code;
 
     private String returnMessage;
-
-    private String errorCode;
 
     private String errorMessage;
 
@@ -31,13 +27,13 @@ public class Response<V> {
 
     //ResponseOk for Insert
     public Mono<Response<V>> responseOk(){
-        return Mono.just(new Response<V>().setReturnCode(StatusEnums.SUCCESS.getReturnCode())
+        return Mono.just(new Response<V>().setCode(StatusEnums.SUCCESS.getCode())
                     .setReturnMessage(StatusEnums.SUCCESS.getMessage()));
     }
 
     //ResponseOk for Read
     public Mono<Response<V>> responseOk(V value){
-        return Mono.just(new Response<V>().setReturnCode(StatusEnums.SUCCESS.getReturnCode())
+        return Mono.just(new Response<V>().setCode(StatusEnums.SUCCESS.getCode())
                     .setReturnMessage(StatusEnums.SUCCESS.getMessage())
                     .setData(value));
     }
