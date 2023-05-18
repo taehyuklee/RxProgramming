@@ -1,9 +1,45 @@
 package com.manage.reactive.apis.common.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import reactor.core.publisher.Mono;
 
-public class Response {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Accessors(chain = true)
+public class Response<V> {
 
     public static Mono<String> responseOk = Mono.just("Successs");
+
+
+    @JsonProperty
+    private String returnCode;
+
+    private String returnMessage;
+
+    private String errorCode;
+
+    private String errorMessage;
+
+    private V data;
+
+
+    //ResponseOk for Insert
+    public Mono<Response<V>> responseOk(){
+        return Mono.just(new Response<V>().setReturnCode(StatusEnums.SUCCESS.getReturnCode())
+                    .setReturnMessage(StatusEnums.SUCCESS.getMessage()));
+    }
+
+    //ResponseOk for Read
+    public Mono<Response<V>> responseOk(V value){
+        return Mono.just(new Response<V>().setReturnCode(StatusEnums.SUCCESS.getReturnCode())
+                    .setReturnMessage(StatusEnums.SUCCESS.getMessage())
+                    .setData(value));
+    }
 
 }
