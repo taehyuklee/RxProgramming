@@ -45,6 +45,13 @@ public class Response<V> {
                     .setReturnMessage(StatusEnums.CONFLICT.getMessage()));
     }
 
+    //ResponseError - internal Server error (500)
+    public Mono<Response<V>> internalServerError(){
+        return Mono.just(new Response<V>()
+                    .setCode(StatusEnums.INTERNAL_SERVER_ERROR.getCode())
+                    .setErrorMessage(StatusEnums.INTERNAL_SERVER_ERROR.getMessage()));
+    }
+
 
     //ResponseError - missing(Required Value) (0000)
     public Mono<Response<V>> wrontType(String resource){
@@ -88,6 +95,8 @@ public class Response<V> {
                     .setCode(StatusEnums.IN_USE_ERROR.getCode())
                     .setErrorMessage(insertParsing(StatusEnums.IN_USE_ERROR.getMessage(), resource)));
     }
+
+    
 
 
 
