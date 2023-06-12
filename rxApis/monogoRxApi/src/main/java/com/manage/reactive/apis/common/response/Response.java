@@ -96,8 +96,6 @@ public class Response<V> {
                     .setErrorMessage(insertParsing(StatusEnums.IN_USE_ERROR.getMessage(), resource)));
     }
 
-    
-
 
 
     public String insertParsing(String returnMessage, String resource){
