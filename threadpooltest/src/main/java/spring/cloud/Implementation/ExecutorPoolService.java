@@ -1,17 +1,13 @@
 package spring.cloud.Implementation;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 import spring.cloud.config.threadPool.JavaThreadPoolFactory;
 
 @Component
@@ -26,7 +22,7 @@ public class ExecutorPoolService {
 
         if(queueType.equals("LinkedQ")){
             //Blocking Queue
-            // System.out.println("LinkedQ 입니다.");
+            log.info("LinkedQ 입니다.");
             //return Schedulers.fromExecutorService(javaThreadPoolFactory.linkedQPool);
 
             return javaThreadPoolFactory.linkedQpoolSchedule;
@@ -35,7 +31,7 @@ public class ExecutorPoolService {
 
         }else if(queueType.equals("ArraysQ")){
             // Array Queue
-            // System.out.println("ArraysQ 입니다.");
+            log.info("ArraysQ 입니다.");
             //return Schedulers.fromExecutorService(javaThreadPoolFactory.arraysQPool);
 
             return javaThreadPoolFactory.arraysQpoolSchedule;

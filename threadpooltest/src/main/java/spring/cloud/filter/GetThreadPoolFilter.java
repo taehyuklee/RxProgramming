@@ -1,17 +1,12 @@
 package spring.cloud.filter;
 
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -36,8 +31,8 @@ public class GetThreadPoolFilter implements GlobalFilter, Ordered {
          * sPoolType : Schedulers에서 bound인지 parallel인지 알려준다 ("bound", "paral")
          * queueType : Executor threadPool일 경우 queue 선정해줘야 한다 ("LinkedQ", "ArraysQ")
          */
-
-        System.out.println("GlobalFilter1 - Thread   " + Thread.currentThread());
+        
+        log.info("GlobalFilter1 - Thread   " + Thread.currentThread());
 
         //System.out.println("범인은 : " + (exchange.getRequest().getRemoteAddress()));
 
