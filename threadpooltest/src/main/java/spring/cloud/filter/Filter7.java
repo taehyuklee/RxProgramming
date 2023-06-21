@@ -24,7 +24,7 @@ public class Filter7 implements GlobalFilter, Ordered {
         log.info("Filter7 위치입니다." + Thread.currentThread());
 
 
-           Mono<Void> interrupt = Mono.defer(()->{
+        Mono<Void> interrupt = Mono.defer(()->{
             try {
                 log.info("thread 시작");
                 Thread.sleep(10000000);
@@ -52,7 +52,6 @@ public class Filter7 implements GlobalFilter, Ordered {
                         Thread.sleep(1000);
                         log.info("hi");
                     } catch (InterruptedException e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
                     
@@ -66,7 +65,34 @@ public class Filter7 implements GlobalFilter, Ordered {
                     log.info("error: {}" + e.getMessage());
                     return null;}).then();
 
-        return infinite.then(chain.filter(exchange));
+
+        Mono<Void> callable = Mono.fromCallable(()->{
+ 
+                log.info("thread 무한루프 시작");
+                boolean a = true;
+                while(a){
+                    try {
+                        Thread.sleep(1000);
+                        log.info("hi");
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                    
+                }
+                log.info("thread 무한루프 끝");
+               
+            return Mono.empty();
+        }
+        ).subscribeOn(Schedulers.boundedElastic())
+            .timeout(Duration.ofSeconds(5), Schedulers.boundedElastic()).onErrorResume(e->{
+                    log.info("error: {}" + e.getMessage());
+                    return null;}).then();
+
+
+
+
+
+        return callable.then(chain.filter(exchange));
 
     }
 
