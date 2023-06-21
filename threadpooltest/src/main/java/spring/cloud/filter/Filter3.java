@@ -17,9 +17,7 @@ public class Filter3 implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        
-         System.out.println("밖에 나왔을때의 위치 스레드 Filter3" + Thread.currentThread());
-
+        log.info("Filter3 위치입니다." + Thread.currentThread());
 
         return chain.filter(exchange);
 

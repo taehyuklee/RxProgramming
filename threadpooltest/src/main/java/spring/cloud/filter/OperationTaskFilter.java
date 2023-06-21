@@ -38,7 +38,7 @@ public class OperationTaskFilter implements GlobalFilter, Ordered {
         // System.out.println(sum);
         return sum;
     }
-
+    
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -61,8 +61,8 @@ public class OperationTaskFilter implements GlobalFilter, Ordered {
             //System.out.println("아무것도 안해요");
 
             }
-
-            System.out.println("밖에 나왔을때의 위치 스레드 1" + Thread.currentThread());
+            
+            log.info("밖에 나왔을때의 위치 스레드 1" + Thread.currentThread());
             //return Mono.empty();
 
        return chain.filter(exchange);

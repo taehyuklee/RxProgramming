@@ -19,7 +19,7 @@ public class ExecutorPoolService {
 
 
     public Scheduler getExecutor(String queueType) throws Exception {
-
+        
         if(queueType.equals("LinkedQ")){
             //Blocking Queue
             log.info("LinkedQ 입니다.");
@@ -36,7 +36,7 @@ public class ExecutorPoolService {
 
             return javaThreadPoolFactory.arraysQpoolSchedule;
 
-
+            
         }else{
             log.info("Executor 스레드풀에서 Queue 이름이 잘못되었습니다");
             return null;
