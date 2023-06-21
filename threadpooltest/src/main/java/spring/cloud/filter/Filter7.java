@@ -10,6 +10,7 @@ import org.springframework.web.server.ServerWebExchange;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 @Component
@@ -22,6 +23,7 @@ public class Filter7 implements GlobalFilter, Ordered {
         
         log.info("Filter7 위치입니다." + Thread.currentThread());
 
+
            Mono<Void> interrupt = Mono.defer(()->{
             try {
                 log.info("thread 시작");
@@ -33,10 +35,13 @@ public class Filter7 implements GlobalFilter, Ordered {
             return Mono.empty();
         }
         ).subscribeOn(Schedulers.boundedElastic())
-            .timeout(Duration.ofSeconds(5)).onErrorResume(e->{
-                    log.info("error: {}" + e.getMessage());
-                    return null;}).then();
-
+            .timeout(Duration.ofSeconds(5), Mono.error(new RuntimeException("Fallback RuntimeException")), Schedulers.boundedElastic())
+                    .then();
+        /*
+        * .onErrorResume(e->{
+                            log.info("error: {}" + e.getMessage());
+                            return null;})
+        */
                     
         Mono<Void> infinite = Mono.defer(()->{
  
@@ -57,11 +62,11 @@ public class Filter7 implements GlobalFilter, Ordered {
             return Mono.empty();
         }
         ).subscribeOn(Schedulers.boundedElastic())
-            .timeout(Duration.ofSeconds(5)).onErrorResume(e->{
+            .timeout(Duration.ofSeconds(5), Schedulers.boundedElastic()).onErrorResume(e->{
                     log.info("error: {}" + e.getMessage());
                     return null;}).then();
 
-        return chain.filter(exchange);
+        return infinite.then(chain.filter(exchange));
 
     }
 
