@@ -50,16 +50,15 @@ public class OperationTaskFilter implements GlobalFilter, Ordered {
         
         //I/O 작업
             if(poolDto.getN()==0){ 
-            //System.out.println("I/O Task입니다");
+            log.info("I/O Task입니다");
             IOTask(poolDto.getBlockTime());
         }
             else if(poolDto.getN()>0){ 
-            //System.out.println("cpu Task입니다");
-            cpuTask(poolDto.getN());
+                log.info("cpu Task입니다");
+                cpuTask(poolDto.getN());
             }else{
-            //아무것도 없을때
-            //System.out.println("아무것도 안해요");
-
+                //아무것도 없을때
+                log.info("아무것도 안해요");
             }
             
             log.info("밖에 나왔을때의 위치 스레드 1" + Thread.currentThread());

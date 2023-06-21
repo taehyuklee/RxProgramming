@@ -33,9 +33,7 @@ public class GetThreadPoolFilter implements GlobalFilter, Ordered {
          */
         
         log.info("GlobalFilter1 - Thread   " + Thread.currentThread());
-
-        //System.out.println("범인은 : " + (exchange.getRequest().getRemoteAddress()));
-
+        
         Scheduler threadPool = null;
 
         PoolDto poolDto = setPoolDto(exchange);
@@ -62,7 +60,7 @@ public class GetThreadPoolFilter implements GlobalFilter, Ordered {
 
         Scheduler schedulers = Schedulers.newBoundedElastic(20, 1000, "my-thread", 60, false);
 
-        return chain.filter(exchange).subscribeOn(schedulers); //.timeout(2000, Exception)
+        return chain.filter(exchange); //.timeout(2000, Exception) .subscribeOn(schedulers)
     }
 
 
