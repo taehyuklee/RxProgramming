@@ -41,26 +41,26 @@ public class GetThreadPoolFilter implements GlobalFilter, Ordered {
         //poolDto를 다음 필터에 넣어준다.
         exchange.getAttributes().put("poolDto",poolDto);
     
-        try {
-            //header에 따라서 설정이 달라진다.
-            threadPool = servicePacakge.getThreadPoolPacakgeTest(poolDto);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            log.info("시스템에 문제가 발생했습니다. (최외각 Exception에 걸렸습니다)");
-        }
-        
-        //예외처리
-        if(threadPool == null){
-            log.info("스레드풀을 제대로 선택하지 않았습니다.");
-            return Mono.empty();
-        }
+//        try {
+//            //header에 따라서 설정이 달라진다.
+//            threadPool = servicePacakge.getThreadPoolPacakgeTest(poolDto);
+//
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//            log.info("시스템에 문제가 발생했습니다. (최외각 Exception에 걸렸습니다)");
+//        }
+//
+//        //예외처리
+//        if(threadPool == null){
+//            log.info("스레드풀을 제대로 선택하지 않았습니다.");
+//            return Mono.empty();
+//        }
         // System.out.println("GlobalFilter1 - Thread   " + Thread.currentThread());
 
         Scheduler schedulers = Schedulers.newBoundedElastic(20, 1000, "my-thread", 60, false);
 
-        return chain.filter(exchange); //.timeout(2000, Exception) .subscribeOn(schedulers)
+        return chain.filter(exchange);
     }
 
 

@@ -1,5 +1,7 @@
 package spring.cloud.filter;
 
+import java.time.Duration;
+
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -10,25 +12,35 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.time.Duration;
-
 @Component
 @Slf4j
-public class Filter4 implements GlobalFilter, Ordered {
+public class Filter2 implements GlobalFilter, Ordered {
 
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        log.info("Filter4 위치입니다" + Thread.currentThread());
-        //.timeout(Duration.ofSeconds(5), Mono.error(new RuntimeException("걸림")))
+        log.info("Filter2 위치입니다." + Thread.currentThread());
+
+        Mono<Void> interrupt = Mono.defer(()->{
+                    try {
+                        log.info("Filter5에서 Thread Sleep중입니다");
+                        Thread.sleep(10000);
+                        log.info("thread 끝");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return Mono.empty();
+                }
+        ).then();
+
         return chain.filter(exchange);
 
     }
 
     @Override
     public int getOrder() {
-        return 7;
+        return 5;
     }
 
 

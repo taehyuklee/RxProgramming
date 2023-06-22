@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 9001
     #shutdown: graceful
     servlet:
       session:
@@ -13,7 +13,7 @@ spring:
     gateway:
       routes:
         - id: first-service
-          uri: http://localhost:9001/
+          uri: http://10.200.3.10/ #http://localhost:9001/ 
           predicates:
             - Path=/first-service/*
 
@@ -27,4 +27,9 @@ spring:
             - Path= /**
 
 
-        
+thread:
+  poolParams:
+    corePoolSize: 60
+    maximumPoolSize: 60
+    capacity: 10000
+    keepAliveTime: 60

@@ -24,81 +24,27 @@ public class Filter7 implements GlobalFilter, Ordered {
         log.info("Filter7 위치입니다." + Thread.currentThread());
 
 
-        Mono<Void> interrupt = Mono.defer(()->{
-            try {
-                log.info("thread 시작");
-                Thread.sleep(10000000);
-                log.info("thread 끝");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return Mono.empty();
-        }
-        ).subscribeOn(Schedulers.boundedElastic())
-            .timeout(Duration.ofSeconds(5), Mono.error(new RuntimeException("Fallback RuntimeException")), Schedulers.boundedElastic())
-                    .then();
-        /*
-        * .onErrorResume(e->{
-                            log.info("error: {}" + e.getMessage());
-                            return null;})
-        */
-                    
-        Mono<Void> infinite = Mono.defer(()->{
+        Mono<Void> anotherThread = Mono.fromCallable(()->{
+
+            log.info("다른 스레드를 구독했습니다.");
  
-                log.info("thread 무한루프 시작");
-                boolean a = true;
-                while(a){
-                    try {
-                        Thread.sleep(1000);
-                        log.info("hi");
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                    
-                }
-                log.info("thread 무한루프 끝");
+            log.info("스레드 timeout?");
+            Thread.sleep(10000);
                
+            log.info("끝");
             return Mono.empty();
         }
-        ).subscribeOn(Schedulers.boundedElastic())
-            .timeout(Duration.ofSeconds(5), Schedulers.boundedElastic()).onErrorResume(e->{
-                    log.info("error: {}" + e.getMessage());
-                    return null;}).then();
+        ).subscribeOn(Schedulers.boundedElastic()).then();
 
+        //        anotherThread.subscribe();
 
-        Mono<Void> callable = Mono.fromCallable(()->{
- 
-                log.info("thread 무한루프 시작");
-                boolean a = true;
-                while(a){
-                    try {
-                        Thread.sleep(1000);
-                        log.info("hi");
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                    
-                }
-                log.info("thread 무한루프 끝");
-               
-            return Mono.empty();
-        }
-        ).subscribeOn(Schedulers.boundedElastic())
-            .timeout(Duration.ofSeconds(5), Schedulers.boundedElastic()).onErrorResume(e->{
-                    log.info("error: {}" + e.getMessage());
-                    return null;}).then();
-
-
-
-
-
-        return callable.then(chain.filter(exchange));
+        return chain.filter(exchange);
 
     }
 
     @Override
     public int getOrder() {
-        return 8;
+        return 10;
     }
 
 
