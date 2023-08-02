@@ -1,4 +1,4 @@
-package com.serivce.goodService.controller;
+package com.serivce.testservice.controller;
 
 import org.springframework.web.bind.annotation.*;
 
