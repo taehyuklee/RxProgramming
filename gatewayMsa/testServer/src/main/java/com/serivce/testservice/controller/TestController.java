@@ -6,12 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 
 //Controller
 @RestController //화면을 갖고있지 않고, RestAPI 형태로만 신호가 왔다 갔다 할거임. 
-@RequestMapping("/first-service") //사용자로부터 요청되는 URI값을 지정해두는 것.
+@RequestMapping("/test-service") //사용자로부터 요청되는 URI값을 지정해두는 것.
 @Slf4j // log로 바로 출력해서 볼수 있도록 한다.
 public class TestController {
     @GetMapping("/welcome")
     public String welcome(){
-        return "Welcome to the First service";
+        return "Welcome to the Test service";
     }
 
     @GetMapping("/error") //first-request header를 받는다.
