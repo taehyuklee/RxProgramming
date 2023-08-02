@@ -14,7 +14,7 @@ public class TestController {
         return "Welcome to the Test service";
     }
 
-    @GetMapping("/error") //first-request header를 받는다.
+    @GetMapping("/fail") //first-request header를 받는다.
     public String error(@RequestParam(required = false) String message){
         System.out.println(message);
         log.info("Fail");
