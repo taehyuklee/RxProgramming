@@ -18,14 +18,14 @@ public class TestController {
     public String error(@RequestParam(required = false) String message){
         System.out.println(message);
         log.info("Fail");
-        return "You're request is success.";
+        throw new IllegalArgumentException("You're request is fail");
     }
 
     @GetMapping("/ok") //first-request header를 받는다.
     public String ok(@RequestParam(required = false) String message){
         System.out.println(message);
         log.info("Success");
-        return "your request is fail.";
+        return "You're request is success.";
     }
 
 }
