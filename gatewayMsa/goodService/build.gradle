@@ -24,6 +24,9 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//implementation 'com.fasterxml.jackson.core:jackson-core:2.12.5' // Jackson 버전을 프로젝트에 맞게 업데이트하세요
+
 }
 
 tasks.named('test') {
