@@ -23,7 +23,7 @@ public class SecondServiceController {
     @GetMapping("/welcome")
     public String welcome(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
 
-        log.info("null");
+        log.info("test 중입니다...");
         Map<String, String> responseHeader = new HashMap<>();
 
         Enumeration<String> headerNm = request.getHeaderNames();
