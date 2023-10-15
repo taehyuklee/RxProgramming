@@ -46,7 +46,7 @@ public class SecondServiceController {
         StringBuilder sb = new StringBuilder();
         sb.append("[request에서 response에 추가된 header들 목록들] \n\n");
         for(Entry<String, String> entry : responseHeader.entrySet()){
-            sb.append(entry.getKey()).append(" : ").append(entry.getValue()).append(",").append("\n");
+            sb.append(entry.getKey()).append("  :  ").append(entry.getValue()).append(",          ").append("\n");
         }
        
         return sb.toString();
