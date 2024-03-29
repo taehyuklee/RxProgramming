@@ -1,5 +1,5 @@
 server:
-    port: 6379
+    port: 8080
     shutdown: graceful
     servlet:
       session:
